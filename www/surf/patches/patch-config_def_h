@@ -1,0 +1,123 @@
+--- config.def.h	Tue Mar 28 12:17:45 2017
++++ /home/djmoch/src/dotcom-git/slackbuilds/surf/config.h	Sun Feb  9 19:03:06 2020
+@@ -1,10 +1,10 @@
+ /* modifier 0 means no modifier */
+ static int surfuseragent    = 1;  /* Append Surf version to default WebKit user agent */
+ static char *fulluseragent  = ""; /* Or override the whole user agent string */
+-static char *scriptfile     = "~/.surf/script.js";
+-static char *styledir       = "~/.surf/styles/";
+-static char *cachedir       = "~/.surf/cache/";
+-static char *cookiefile     = "~/.surf/cookies.txt";
++static char *scriptfile     = "~/etc/surf/script.js";
++static char *styledir       = "~/etc/surf/styles/";
++static char *cachedir       = "~/etc/surf/cache/";
++static char *cookiefile     = "~/etc/surf/cookies.txt";
+ 
+ /* Webkit default features */
+ static Parameter defconfig[ParameterLast] = {
+@@ -13,12 +13,12 @@
+ 	SETV(CookiePolicies,     "@Aa"),
+ 	SETB(DiskCache,          1),
+ 	SETB(DNSPrefetch,        0),
+-	SETI(FontSize,           12),
++	SETI(FontSize,           14),
+ 	SETB(FrameFlattening,    0),
+ 	SETB(Geolocation,        0),
+ 	SETB(HideBackground,     0),
+ 	SETB(Inspector,          0),
+-	SETB(JavaScript,         1),
++	SETB(JavaScript,         0),
+ 	SETB(KioskMode,          0),
+ 	SETB(LoadImages,         1),
+ 	SETB(MediaManualPlay,    0),
+@@ -32,14 +32,15 @@
+ 	SETV(SpellLanguages,     ((char *[]){ "en_US", NULL })),
+ 	SETB(StrictSSL,          0),
+ 	SETB(Style,              1),
+-	SETF(ZoomLevel,          1.0),
++	SETF(ZoomLevel,          1.9),
+ };
+ 
+ static UriParameters uriparams[] = {
+-	{ "(://|\\.)suckless\\.org(/|$)", {
+-	  FSETB(JavaScript, 0),
+-	  FSETB(Plugins,    0),
+-	}, },
++	{ "(://|\\.)djmoch\\.org(/|$)",     { FSETB(JavaScript, 1), }, },
++	{ "(://|\\.)danielmoch\\.com(/|$)", { FSETB(JavaScript, 1), }, },
++	{ "(://|\\.)twitter\\.com(/|$)",    { FSETB(JavaScript, 1), }, },
++	{ "(://|\\.)github\\.com(/|$)",     { FSETB(JavaScript, 1), }, },
++	{ ".*",                             { FSETB(JavaScript, 0), }, },
+ };
+ 
+ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
+@@ -49,17 +50,47 @@
+         .v = (const char *[]){ "/bin/sh", "-c", \
+              "prop=\"`xprop -id $2 $0 " \
+              "| sed \"s/^$0(STRING) = \\(\\\\\"\\?\\)\\(.*\\)\\1$/\\2/\" " \
+-             "| xargs -0 printf %b | dmenu`\" &&" \
++             "| xargs -0 printf %b | dmenu -fn \"sans:size=8\" -nb \"#3A3A3A\" " \
++	     "-nf \"#FFFFFF\" -sb \"#BCBCBC\" -sf \"#000000\"`\" &&" \
+              "xprop -id $2 -f $1 8s -set $1 \"$prop\"", \
+              p, q, winid, NULL \
+         } \
+ }
+ 
++#define SEARCH(p, q) { \
++        .v = (const char *[]){ "/bin/sh", "-c", \
++             "prop=\"https://duckduckgo.com/html?q=`dmenu -p \"Search DuckDuckGo\" " \
++             "-fn \"sans:size=8\" -nb \"#3A3A3A\" " \
++	     "-nf \"#FFFFFF\" -sb \"#BCBCBC\" -sf \"#000000\"`\" &&" \
++             "xprop -id $2 -f $1 8s -set $1 \"$prop\"", \
++             p, q, winid, NULL \
++        } \
++}
++
++#define BMARK(p, q) { \
++        .v = (const char *[]){ "/bin/sh", "-c", \
++             "prop=\"`cat ~/etc/surf/bookmarks " \
++             "| dmenu -fn \"sans:size=8\" -nb \"#3A3A3A\" " \
++	     "-nf \"#FFFFFF\" -sb \"#BCBCBC\" -sf \"#000000\"`\" &&" \
++             "xprop -id $2 -f $1 8s -set $1 \"$prop\"", \
++             p, q, winid, NULL \
++        } \
++}
++
++#define BMARKSAVE(p, q) { \
++        .v = (const char *[]){ "/bin/sh", "-c", \
++             "prop=\"`xprop -id $2 $0 " \
++             "| sed \"s/^$0(STRING) = \\(\\\\\"\\?\\)\\(.*\\)\\1$/\\2/\" " \
++             "| xargs printf %b\n`\" && echo \"$prop\" >> ~/etc/surf/bookmarks", \
++             p, q, winid, NULL \
++        } \
++}
++
+ /* DOWNLOAD(URI, referer) */
+ #define DOWNLOAD(d, r) { \
+         .v = (const char *[]){ "/bin/sh", "-c", \
+-             "st -e /bin/sh -c \"curl -g -L -J -O --user-agent '$1'" \
+-             " --referer '$2' -b $3 -c $3 '$0';" \
++             "my term -e /bin/sh -c \"cd ~/dl; curl -g -L -J -O " \
++	     "--user-agent '$1' --referer '$2' -b $3 -c $3 '$0';" \
+              " sleep 5;\"", \
+              d, useragent, r, cookiefile, NULL \
+         } \
+@@ -78,7 +109,7 @@
+ /* VIDEOPLAY(URI) */
+ #define VIDEOPLAY(u) {\
+         .v = (const char *[]){ "/bin/sh", "-c", \
+-             "mpv --really-quiet \"$0\"", u, NULL \
++             "mplayer --really-quiet \"$0\"", u, NULL \
+         } \
+ }
+ 
+@@ -104,6 +135,9 @@
+ 	{ MODKEY,                GDK_KEY_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO") },
+ 	{ MODKEY,                GDK_KEY_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
+ 	{ MODKEY,                GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
++	{ MODKEY,                GDK_KEY_s,      spawn,      SEARCH("_SURF_URI", "_SURF_GO") },
++	{ MODKEY,                GDK_KEY_d,      spawn,      BMARK("_SURF_URI", "_SURF_GO") },
++	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_d,      spawn,      BMARKSAVE("_SURF_URI", "_SURF_GO") },
+ 
+ 	{ 0,                     GDK_KEY_Escape, stop,       { 0 } },
+ 	{ MODKEY,                GDK_KEY_c,      stop,       { 0 } },
