@@ -1,6 +1,5 @@
-<<<<<<< patch-config_def_h
---- config.def.h	Sat Feb  9 06:50:41 2019
-+++ /home/djmoch/src/dotcom-git/pkgbuild/st/config.h	Mon Dec 30 19:50:45 2019
+--- config.def.h.orig	Fri Jun 19 05:29:45 2020
++++ config.def.h	Wed Aug  5 12:02:44 2020
 @@ -5,7 +5,7 @@
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
@@ -8,18 +7,18 @@
 -static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
 +static char *font = "monospace:size=9:antialias=true:autohint=false,emoji:size=8:antialias=true:autohint=false";
  static int borderpx = 2;
-
+ 
  /*
-@@ -63,7 +63,7 @@
+@@ -74,7 +74,7 @@
  static int bellvolume = 0;
-
+ 
  /* default TERM value */
 -char *termname = "st-256color";
 +char *termname = "st";
-
+ 
  /*
   * spaces per tab
-@@ -85,30 +85,26 @@
+@@ -96,30 +96,26 @@
  /* Terminal colors (16 first used in escape sequence) */
  static const char *colorname[] = {
  	/* 8 normal colors */
@@ -30,16 +29,6 @@
 -	"blue2",
 -	"magenta3",
 -	"cyan3",
-=======
-$OpenBSD: patch-config_def_h,v 1.12 2020/05/23 19:32:37 mestre Exp $
-Index: config.def.h
---- config.def.h.orig
-+++ config.def.h
-@@ -94,7 +94,7 @@ static const char *colorname[] = {
- 	"blue2",
- 	"magenta3",
- 	"cyan3",
->>>>>>> 1.12
 -	"gray90",
 +	"#000000",
 +	"#870000",
@@ -49,7 +38,7 @@ Index: config.def.h
 +	"#875FAF",
 +	"#008080",
 +	"#BCBCBC",
-
+ 
  	/* 8 bright colors */
 -	"gray50",
 -	"red",
@@ -67,16 +56,16 @@ Index: config.def.h
 +	"#D787FF",
 +	"#87FF87",
 +	"#FFFFFF",
-
+ 
  	[255] = 0,
 -
 -	/* more colors can be added after 255 to use with DefaultXX */
 -	"#cccccc",
 -	"#555555",
  };
-
-
-@@ -116,10 +112,10 @@
+ 
+ 
+@@ -127,10 +123,10 @@
   * Default colors (colorname index)
   * foreground, background, cursor, reverse cursor
   */
@@ -88,6 +77,6 @@ Index: config.def.h
 +unsigned int defaultbg = 15;
 +static unsigned int defaultcs = 0;
 +static unsigned int defaultrcs = 15;
-
+ 
  /*
   * Default shape of cursor
