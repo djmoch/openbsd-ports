@@ -1,0 +1,2 @@
+This utility filters stdin to stdout, applying HTML encoding along the
+way.

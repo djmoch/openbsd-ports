@@ -1,0 +1,10 @@
+@bin bin/git
+@bin bin/git-fetch-pack
+@bin bin/git-index-pack
+@bin bin/git-receive-pack
+@bin bin/git-send-pack
+@bin bin/git-upload-pack
+@bin bin/git-verify-pack
+@bin cgi-bin/git-http-backend
+@dir dev
+@exec-add mknod -m666 dev/null c 2 2

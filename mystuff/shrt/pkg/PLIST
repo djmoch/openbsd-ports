@@ -1,0 +1,4 @@
+@bin cgi-bin/shrt
+@cwd ${LOCALBASE}
+@man man/man1/shrt.1
+@man man/man5/shrtfile.5

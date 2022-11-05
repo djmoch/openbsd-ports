@@ -1,0 +1,12 @@
+/bulk/
+/distfiles/
+/locks/
+/logs/
+/lost+found/
+/openbsd-wip/
+/packages/
+/plist/
+/pobj/
+/sqlports/
+/sqlports-journal/
+/update/

@@ -1,0 +1,11 @@
+--- Makefile.orig	Thu Nov  3 14:54:15 2022
++++ Makefile	Thu Nov  3 15:31:45 2022
+@@ -19,7 +19,7 @@
+ 	rm -f shrt *.o
+ 
+ install: shrt
+-	install -Dm755 shrt ${DESTDIR}${PREFIX}/bin/shrt
++	install -Dm755 shrt ${DESTDIR}${PREFIX}/cgi-bin/shrt
+ 	install -Dm644 shrt.1 ${DESTDIR}${MANPATH}/man1/shrt.1
+ 	install -Dm644 shrtfile.5 ${DESTDIR}${MANPATH}/man5/shrtfile.5
+ 

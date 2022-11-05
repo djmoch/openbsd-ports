@@ -1,0 +1,11 @@
+@group daemon
+@bin git/cgi-bin/cgit.cgi
+@group
+www/cgit/
+www/cgit/cgit.css
+www/cgit/cgit.png
+www/cgit/favicon.ico
+www/cgit/robots.txt
+@cwd ${LOCALBASE}
+@man man/man5/cgitrc.5
+share/doc/pkg-readmes/${PKGSTEM}
