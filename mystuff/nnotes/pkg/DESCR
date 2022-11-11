@@ -1,0 +1,14 @@
+A re-implementation of v1 of the NextCloud Notes API as a standalone
+Go application.
+
+Advantages:
+
+- Rid yourself of a heavy, PHP-laden web server to host your notes
+
+- Keep using your existing client apps
+
+Disadvantages:
+
+- Derivative
+
+- Arguably a waste of time

@@ -1,0 +1,16 @@
+#!/bin/ksh
+
+daemon="/usr/local/bin/nnotes"
+daemon_user="_nnotes"
+
+. /etc/rc.d/rc.subr
+
+rc_bg=YES
+rc_reload=NO
+
+rc_start () {
+	${rcexec} "cd /var/nnotes && ${daemon} ${daemon_flags} 2>&1 |
+		logger -p daemon.info -t nnotes"
+}
+
+rc_cmd $1

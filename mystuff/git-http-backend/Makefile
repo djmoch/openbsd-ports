@@ -4,6 +4,7 @@ V =		2.37.3
 DISTNAME =	git-${V}
 CATEGORIES =	mystuff www
 FULLPKGNAME =	git-http-backend-${V}
+PKGPATH = 	mystuff/git-http-backend
 
 HOMEPAGE =	https://git-scm.com/
 

@@ -4,6 +4,7 @@ V =		1.2.3
 DISTNAME =	cgit-${V}
 CATEGORIES =	mystuff www devel
 FULLPKGNAME =	cgit-vargit-${V}
+PKGPATH =	mystuff/cgit-vargit
 
 # upstream has git 2.25.1 called out as the specific version to build against
 # https://git.zx2c4.com/cgit/commit/?id=fde897b8171ed2e925b44ec6f69590ec07241017

@@ -1,0 +1,11 @@
+@newgroup _nnotes:501
+@newuser _nnotes:501:_nnotes:daemon:Nnotes user:${VARBASE}/nnotes:/sbin/nologin
+@rcscript ${RCDIR}/nnotes
+@mode 755
+@owner _nnotes
+@group _nnotes
+@sample ${VARBASE}/nnotes/
+@mode
+@owner
+@group
+@bin bin/nnotes

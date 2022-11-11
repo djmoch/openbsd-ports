@@ -3,6 +3,7 @@ COMMENT =	url shortener and go-get redirector
 DISTNAME   =	shrt-1.0.4
 CATEGORIES =	mystuff www
 HOMEPAGE   =	https://git.danielmoch.com/shrt/about/
+PKGPATH    =	mystuff/shrt
 
 MASTER_SITES =		https://dl.danielmoch.com/shrt/
 
